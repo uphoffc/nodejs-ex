@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Flexible model extension and optimisation for earthquake simulations at extreme scales</title>
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/katex.min.css">
+    <link rel="stylesheet" href="css/theme/tum.css">
+    <script src="js/katex.min.js"></script>
+    <script src="js/auto-render.min.js"></script>
+	</head>
+	<body>
+    <div class="reveal">
+      <div class="slides">
+        <section>
+          <div class="stretch">
+            <div style="position: absolute; top: 50%;">
+              <p style="color: #1964b3">Carsten Uphoff</p>
+            </div>
+            <div style="position: absolute; bottom: 0em;">
+              <h2 style="text-align: left;">Flexible Model Extension and Optimisation for</h2>
+              <h2 style="text-align: left;">Earthquake Simulations at Extreme Scales</h2>
+            </div>
+          </div>
+        </section>
+        <section data-background-image="img/searles_valley.jpg">
+          <div class="stretch">
+            <div style="position: absolute; bottom: 0em;">
+              <!-- f4ca06 ? -->
+              <h2 style="text-align: left; color: #fff;">Earthquake Simulations</h2>
+            </div>
+          </div>
+        </section>
+        <section data-background-image="img/ridgecrest_disp.png">
+          <div class="stretch">
+            <div style="position: absolute; left: 0em; bottom: 0em;" class="box fragment">
+              <h4>Ω</h4>
+              <p style="font-size: 0.6em; text-align: left;">
+                Partial differential equations: 
+                $$
+                  \frac{\partial}{\partial t} \sigma_{ij} =
+                    \lambda\delta_{ij}\frac{\partial}{\partial x_k}u_{k}
+                    + \mu\left(\frac{\partial}{\partial x_j}u_{i} + \frac{\partial}{\partial x_i}u_{j}\right)
+                  
+                $$
+                $$
+                  \rho \frac{\partial}{\partial t} u_i = f_i + \frac{\partial}{\partial x_j}\sigma_{ji}
+                $$
+                (Sum over every index that appears twice.)
+              </p>
+            </div>
+            <div style="position: absolute; right: 0em; bottom: 0em; border-color: #ad0000;" class="box fragment">
+              <h4 style="color: #ad0000;">Σ</h4>
+              <p style="font-size: 0.6em; text-align: left;">
+                Differential-algebraic equations: 
+                $$
+                  \tau_S \llbracket\boldsymbol{u}\rrbracket -
+                  \boldsymbol{\tau}|u| = 0
+                $$
+                $$
+                  \tau_S = \max(0,-\sigma_n f(|u|,\psi)) 
+                $$
+                $$
+                  \frac{d\psi}{dt} = g(|u|,\psi)
+                $$
+              </p>
+            </div>
+          </div>
+        </section>
+        <section>
+          <div class="stretch columns">
+            <div class="column" style="text-align: left;">
+              <h2><a href="http://github.com/SeisSol/SeisSol">SeisSol</a></h2>
+              <video loop data-autoplay>
+                <source data-src="video/sumatra.webm" type="video/webm">
+              </video>
+            </div>
+            <div class="column" style="text-align: left; max-width: 45%; align-self: flex-end;">
+              Arbitrary high-order DERivatives
+              <ul class="listplus fragment">
+                <li>Local time-stepping</li>
+                <li>High-order in time</li>
+              </ul>
+              Discontinuous Galerkin
+              <ul class="listplus fragment">
+                <li>Explicit semi-discrete form</li>
+                <li>Fault as boundary condition (discont. solution space)</li>
+              </ul>
+              Finite Element Method
+              <ul class="listplus fragment">
+                <li>Complex geometries<br>(tetrahedral meshes)</li>
+                <li>High-order in space</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+        <section>
+          <div class="columns_wrap">
+            <div class="column50">
+              Numerical scheme
+              <img src="img/numerical_scheme.png">
+            </div>
+            <div class="column50">
+              Local time-stepping
+              <img src="img/lts.png">
+            </div>
+            <div class="column50">
+              Model extension
+              <div class="video_wrapper">
+                <iframe data-src="iframe/wave.html" frameborder="0" data-preload></iframe>
+              </div>
+            </div>
+            <div class="column50">
+              Supercomputing
+              <img src="img/supermucng.png">
+            </div>
+          </div>
+        </section>
+        <section>
+          <div class="stretch">
+            <div style="position: absolute; bottom: 0em;">
+              <!-- f4ca06 ? -->
+              <h2 style="text-align: left;"><span style="color: rgba(0,0,0,0)">Earthquake Simulations</span> at Extreme Scales</h2>
+            </div>
+            <div class="columns fragment">
+              <div class="column">
+                <img src="img/sumatra.png" style="max-width: 90%;"/>
+              </div>
+              <div class="column">
+                <p>Sumatra-Andaman earthquake</p>
+                <ul>
+                  <li>Failure of 1020&ndash;1050 km of the Sunda megathrust</li>
+                  <li>8&ndash;10 minutes of shaking</li>
+                  <li>230,000 killed</li>
+                  <li>Run-up heights of up to 50 m</li>
+                  <li>M<sub>W</sub> 9.1&ndash;9.3</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section>
+          <div class="stretch">
+            <iframe data-src="iframe/wave.html" frameborder="0" width="100%" height="100%" data-preload></iframe>
+          </div>
+        </section>
+      </div>
+    </div>
+    <script src="bundle.js"></script>
+    <script>
+      renderMathInElement(document.body);
+    </script>
+	</body>
+</html>
