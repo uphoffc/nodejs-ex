@@ -24,7 +24,7 @@ section.has-dark-background, section.has-dark-background h1, section.has-dark-ba
   padding: 0em 0.4em;
 }
 
-img {
+img, pre {
   border: none !important;
   box-shadow: none !important;
 }
@@ -47,16 +47,30 @@ img {
 .column50 {
   flex: 1;
   min-width: 50%;
+  margin-bottom: 1em;
 }
 .column50 img {
   max-width: 70% !important;
 }
 
+.no_margin {
+  margin: 0;
+}
+
 .video_wrapper {
+  max-width: 70% !important;
+  text-align: center;
   position: relative;
+  top: 0;
+  left: 50%;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  transform: translateX(-50%);
+}
+.video_wrapper div {
   padding-bottom: 32.74%;
 }
-.video_wrapper iframe {
+.video_wrapper div iframe {
   position: absolute;
   left: 0;
   top: 0;
@@ -86,14 +100,35 @@ ul.listplus li:before {
   margin-left: -1em;
 }
 
+.credit {
+  font-size: 0.4em;
+  margin: -1.5em 0 0.5em 0 !important;
+}
+
+.smaller {
+  font-size: 0.8em;
+}
+
+.highlight {
+  color: #a2ad00;
+}
+
+.tumblue {
+  color: #3070b3;
+}
+
+.tumorange {
+  color: #e37222;
+}
+
 /*********************************************
  * GLOBAL STYLES
  *********************************************/
 body {
   background-image: url(../../img/TUM_Logo_blau_rgb_p.png);
   background-repeat: no-repeat;
-  background-size: auto 5em;
-  background-position: right 5em top 5em;
+  background-size: auto 7%;
+  background-position: right 7% top 7%;
   background-color: #fff;
 }
 
@@ -143,7 +178,7 @@ body {
 }
 
 .reveal h1 {
-  font-size: 1.9em;
+  font-size: 2.6em;
 }
 
 .reveal h2 {

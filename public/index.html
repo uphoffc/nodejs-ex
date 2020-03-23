@@ -39,7 +39,7 @@
             </div>
           </div>
         </section>
-        <section data-background-image="img/ridgecrest_disp.png">
+        <section data-background-image="img/searles_valley_disp.jpg">
           <div class="stretch">
             <div style="position: absolute; left: 0em; bottom: 0em;" class="box fragment">
               <h4>Ω</h4>
@@ -54,7 +54,7 @@
                 $$
                   \rho \frac{\partial}{\partial t} u_i = f_i + \frac{\partial}{\partial x_j}\sigma_{ji}
                 $$
-                (Sum over every index that appears twice.)
+                Einstein: Sum over every index that appears twice.
               </p>
             </div>
             <div style="position: absolute; right: 0em; bottom: 0em; border-color: #ad0000;" class="box fragment">
@@ -85,17 +85,17 @@
             </div>
             <div class="column" style="text-align: left; max-width: 45%; align-self: flex-end;">
               Arbitrary high-order DERivatives
-              <ul class="listplus fragment">
+              <ul class="fragment">
                 <li>Local time-stepping</li>
                 <li>High-order in time</li>
               </ul>
               Discontinuous Galerkin
-              <ul class="listplus fragment">
+              <ul class="fragment">
                 <li>Explicit semi-discrete form</li>
                 <li>Fault as boundary condition (discont. solution space)</li>
               </ul>
               Finite Element Method
-              <ul class="listplus fragment">
+              <ul class="fragment">
                 <li>Complex geometries<br>(tetrahedral meshes)</li>
                 <li>High-order in space</li>
               </ul>
@@ -106,36 +106,235 @@
           <div class="columns_wrap">
             <div class="column50">
               Numerical scheme
-              <img src="img/numerical_scheme.png">
+              <img src="img/numerical_scheme.jpg">
+              <ul class="listplus smaller">
+                <li>Stability analysis</li>
+                <li>Flux matrix decomposition</li>
+              </ul>
             </div>
             <div class="column50">
               Local time-stepping
               <img src="img/lts.png">
+              <ul class="listplus smaller">
+                <li>Dynamic rupture</li>
+                <li>Improved load-balancing</li>
+              </ul>
             </div>
             <div class="column50">
               Model extension
-              <div class="video_wrapper">
+              <div class="video_wrapper"><div>
                 <iframe data-src="iframe/wave.html" frameborder="0" data-preload></iframe>
-              </div>
+              </div></div>
+              <ul class="listplus smaller">
+                <li class="fragment highlight-red" data-fragment-index="1">YATeTo</li>
+                <li>Viscoelasticity (and plasticity)</li>
+                <li><i>easi</i> model initialisation</li>
+              </ul>
             </div>
             <div class="column50">
               Supercomputing
-              <img src="img/supermucng.png">
+              <img src="img/supermucng.jpg">
+              <p class="credit">SuperMUC-NG, Photo: Veronika Hohenegger, LRZ</p>
+              <ul class="listplus smaller">
+                <li class="fragment highlight-red" data-fragment-index="1">Largest dynamic rupture simulation of the 2004 Sumatra-Andaman earthquake</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+        <section>
+          <div class="columns">
+            <div class="column">
+              <h1 style="text-align: left;"><b>Y</b>et</h1>
+              <h1 style="text-align: left;"><b>A</b>nother</h1>
+              <h1 style="text-align: left;"><b>Te</b>nsor</h1>
+              <h1 style="text-align: left;"><b>To</b>olbox</h1>
+            </div>
+            <div class="column fragment" style="text-align: left;">
+              <p>Fix the implementation chaos:</p>
+
+              <ul class="smaller">
+                <li>Architectures: <b>Haswell, Knights Landing, Skylake</b>, ARM, PowerPC, GPU</li>
+                <li><b>Ensemble simulations</b></li>
+                <li>Polynomial degrees: <b>1&mdash;7</b></li>
+                <li>Rheological model: <b>elastic, viscoelastic, viscoplastic</b>, poroelastic</li>
+                <li>Element types: <b>Tetrahedra</b>, Hexahedra (spectral elements)</li>
+                <li>P-Adaptivity</li>
+                <li>Coupled PDEs</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+        <section>
+          <div class="columns_wrap">
+            <div class="column50 no_margin" style="font-size: 0.5em;">
+              $$
+                \frac{\partial}{\partial t} \sigma_{ij} =
+                  \lambda\delta_{ij}\frac{\partial}{\partial x_k}u_{k}
+                  + \mu\left(\frac{\partial}{\partial x_j}u_{i} + \frac{\partial}{\partial x_i}u_{j}\right)
+              $$
+              $$
+                \rho \frac{\partial}{\partial t} u_i = f_i + \frac{\partial}{\partial x_j}\sigma_{ji}
+              $$
+            </div>
+            <div class="column50 no_margin">
+              <p>Strong / weak form</p>
+              <p class="smaller" style="color: red;"><b>UFL:</b> FEniCS, Firedrake, dune-pdelab</p>
+            </div>
+            <div class="column50 no_margin">&darr;&uarr;</div><div class="column50 no_margin"></div>
+            <div class="column50 no_margin">
+              <img src="img/numerical_scheme.jpg" style="max-width: 90% !important">
+            </div>
+            <div class="column50 no_margin">
+              <p>Numerical scheme</p>
+              <p class="smaller tumorange"><b>Einstein (or similar):</b> Many for large tensors</p>
+              <a href="https://github.com/SeisSol/yateto">YATeTo!</a>
+            </div>
+            <div class="column50 no_margin">&darr;&uarr;</div><div class="column50 no_margin"></div>
+            <div class="column50 no_margin">
+              <pre>
+vmovapd 0(%rdi), %zmm0
+vmovapd 128(%rdi), %zmm1
+vfmadd231pd 0(%rsi) {1to8}, %zmm0, %zmm16
+vfmadd231pd 0(%rsi,%r15,1) {1to8}, %zmm0, %zmm17
+vfmadd231pd 0(%rsi,%r15,2) {1to8}, %zmm0, %zmm18
+vfmadd231pd 0(%rsi,%rax,1) {1to8}, %zmm0, %zmm19
+vfmadd231pd 0(%rsi,%r15,4) {1to8}, %zmm0, %zmm20
+              </pre>
+            </div>
+            <div class="column50 no_margin">
+              <p>Implementation</p>
+              <p class="smaller highlight"><b>BLAS:</b> LIBXSMM, BLIS, OpenBLAS, etc.<br/>
+              <b>Loop-based:</b> loo.py, GEM</p>
+            </div>
+          </div>
+        </section>
+        <section>
+          <h2>Einstein's convention</h2><br/>
+          <div class="columns_wrap" style="align-items: baseline;">
+            <div class="column50">
+              \(
+                A_i = B_iC_i
+              \)
+            </div>
+            <div class="column50 fragment" data-fragment-index="1">
+              \(
+                A_i := \sum_i B_iC_i
+              \)
+            </div>
+            <div class="column50">
+              \(
+                A_i = B_{i}C_{i}D_{i}E_{i}
+              \)
+            </div>
+            <div class="column50 fragment" data-fragment-index="1">
+              \(
+                A_i := \sum_i B_{i}C_{i}D_{i}E_{i}
+              \)
+            </div>
+            <div class="column50">
+              \(
+              A_{ij} = B_{ji} + C_{ji}
+              \)
+            </div>
+            <div class="column50 fragment" data-fragment-index="1">
+              \(
+                A := B^T + C
+              \)
+            </div>
+            <div class="column50 smaller">
+              \(
+                A_{ij} = B_{ilk} C_{jl} (D_{kmi}E_{mki} + F_{ik})
+              \)
+            </div>
+            <div class="column50 smaller fragment" data-fragment-index="1">
+              \(
+                A_{ij} := \sum_k B_{ilk} C_{jl} (\sum_m D_{kmi}E_{mki} + F_{ik})
+              \)
+            </div>
+            <div class="column50 smaller">
+              <h3><b>Ambiguous?</b></h3>
+            </div>
+            <div class="column50 smaller fragment" data-fragment-index="1">
+              <h3><b>Semantics!</b></h3>
             </div>
           </div>
         </section>
         <section>
           <div class="stretch">
-            <div style="position: absolute; bottom: 0em;">
-              <!-- f4ca06 ? -->
-              <h2 style="text-align: left;"><span style="color: rgba(0,0,0,0)">Earthquake Simulations</span> at Extreme Scales</h2>
+            <img src="img/yateto_overview.png" style="max-height: 100%;"/>
+          </div>
+        </section>
+        <section>
+          <div class="stretch" style="text-align: left;">
+            <h2>Equivalent sparsity patterns</h2>
+            <div>
+              Original
+              <img src="img/volume.png" style="max-width: 50%; vertical-align: top; margin-left: 2em;"/>
             </div>
-            <div class="columns fragment">
+            <div>EQSPP
+              <img src="img/volume_eqspp.png" style="max-width: 50%; vertical-align: top; margin-left: 2em;"/>
+            </div>
+            <p>
+              Zero-blocks induced in 3D tensor due to both n-mode products. Benefits:
+              <ul>
+                <li>Automatic exploitation of zero blocks</li>
+                <li>No (sub-)slice notation required</li>
+              </ul>
+            </p>
+          </div>
+        </section>
+        <section>
+          <div class="stretch" style="text-align: left;">
+            <h2>Optimal index permutations</h2>
+            <div style="text-align: center">
+              <img src="img/opt_ind_example.png" style="max-width: 60%;"/>
+            </div>
+            We are free to choose the index permutations of \(T^{(1)}, T^{(2)}, T^{(3)}\).
+            <div class="columns">
               <div class="column">
-                <img src="img/sumatra.png" style="max-width: 90%;"/>
+                <span style="color: red;">Bad:</span>
+                \( T^{(1)}_{qn[s]} = I^T_{[s]lq}R_{ln} \)
               </div>
               <div class="column">
-                <p>Sumatra-Andaman earthquake</p>
+                <span style="color: green;">Good:</span>
+                \( T^{(1)}_{sn[q]} = I_{sl[q]}R_{ln} \)<br/>
+              </div>
+            </div>
+            <br/>
+            <p>
+              <b>Dynamic programming</b> is used to find the "optimal" permutations.
+            </p>
+          </div>
+        </section>
+        <section>
+          <div class="columns">
+            <div class="column" style="max-width: 60%;">
+              <p>Viscoelasticity</p>
+              <p class="credit">On dual socket Xeon Platinum 8174 (≈ 3.8 TFLOPS, double precision)</p>
+              <img src="img/ensemble.png"/>
+            </div>
+            <div class="column">
+              <ul class="listplus">
+                <li>DSL implementation resembles numerical scheme</li>
+                <li>High control over implementation<br>(pre-fetching, memory layout)</li>
+                <li>High performance<br>(over 40 % peak)</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+        <section>
+          <h1 style="text-align: left;">The 2004</h1>
+          <h1 style="text-align: left;">Sumatra-Andaman</h1>
+          <h1 style="text-align: left;">Earthquake and</h1>
+          <h1 style="text-align: left;">Indian Ocean tsunami</h1>
+        </section>
+        <section>
+          <div class="stretch">
+            <div class="columns">
+              <div class="column">
+                <img src="img/sumatra.jpg" style="max-width: 90%;"/>
+              </div>
+              <div class="column" style="text-align: left;">
                 <ul>
                   <li>Failure of 1020&ndash;1050 km of the Sunda megathrust</li>
                   <li>8&ndash;10 minutes of shaking</li>
@@ -148,8 +347,41 @@
           </div>
         </section>
         <section>
+          <div class="columns">
+            <div class="column" style="max-width: 40%">
+              <img src="img/mesh.jpg">
+              <p>111 billion degrees of freedom</p>
+
+              <p><b>7 days and 19 hours</b> on full SuperMUC Phase 2</p>
+            </div>
+            <div class="column fragment" style="text-align: left; margin-left: 2em;">
+              <p>Single node optimisation (2x):
+              <ul>
+                <li>Wave propagation: Flux matrix decomposition</li>
+                <li>Dynamic rupture: Major rewrite using code generation</li>
+              </ul></p>
+              <p>Clustered local time-stepping for dynamic rupture (6.8x)</p>
+              <p>In total: Speed-up of 13.6x, production run took 13.9 h including I/O</p>
+            </div>
+          </div>
+        </section>
+        <section>
           <div class="stretch">
-            <iframe data-src="iframe/wave.html" frameborder="0" width="100%" height="100%" data-preload></iframe>
+            <h3>Strong scaling on SuperMUC and Shaheen</h3>
+            <img src="img/strong_scaling.png"/>
+          </div>
+        </section>
+        <section>
+          <div class="stretch">
+            <h3>Load balancing on Shaheen?</h3>
+            <img src="img/weights_shaheen.png"/>
+          </div>
+        </section>
+        <section>
+          <div class="stretch">
+            <h3>Improved load balancing on Shaheen and Cori</h3>
+            <img src="img/strong_scaling_cori.png" style="max-width: 55%";/><br/>
+            <span>Parallel efficiency: 91% on Shaheen II, 72% on Cori</span>
           </div>
         </section>
       </div>

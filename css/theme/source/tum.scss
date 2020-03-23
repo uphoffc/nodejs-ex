@@ -30,7 +30,7 @@ $linkColor: #3070b3;
 $linkColorHover: lighten( $linkColor, 15% );
 $selectionBackgroundColor: lighten( $linkColor, 25% );
 
-$heading1Size: 1.9em;
+$heading1Size: 2.6em;
 $heading2Size: 1.6em;
 $heading3Size: 1.3em;
 $heading4Size: 1.0em;
@@ -41,7 +41,7 @@ section.has-dark-background {
 	}
 }
 
-$logoHeight: 5em;
+$logoHeight: 7%;
 
 @mixin bodyBackground() {
     background-image: url(../../img/TUM_Logo_blau_rgb_p.png);
@@ -68,7 +68,7 @@ $logoHeight: 5em;
   }
 }
 
-img {
+img, pre {
   border: none !important;
   box-shadow: none !important;
 }
@@ -94,17 +94,31 @@ img {
   img {
     max-width: 70% !important;
   }
+  margin-bottom: 1em;
+}
+
+.no_margin {
+  margin: 0;
 }
 
 .video_wrapper {
+  max-width: 70% !important;
+  text-align: center;
   position: relative;
-  padding-bottom: 32.74%;
-  iframe {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
+  top: 0;
+  left: 50%;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  transform: translateX(-50%);
+  div {
+    padding-bottom: 32.74%;
+    iframe {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+    }
   }
 }
 
@@ -133,6 +147,27 @@ ul.listplus {
       margin-left: -1em;
     }
   }
+}
+
+.credit {
+  font-size: 0.4em;
+  margin: -1.5em 0 0.5em 0 !important;
+}
+
+.smaller {
+  font-size: 0.8em;
+}
+
+.highlight {
+  color: #a2ad00;
+}
+
+.tumblue {
+  color: #3070b3;
+}
+
+.tumorange {
+  color: #e37222;
 }
 
 // Theme template ------------------------------
