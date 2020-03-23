@@ -13,7 +13,9 @@
     "mongodb": "^2.1.16",
     "morgan": "^1.7.0",
     "node-static": "^0.7.11",
-    "object-assign": "4.1.0"
+    "object-assign": "4.1.0",
+    "socket.io": "^2.3.0",
+    "socket.io-client": "^2.3.0"
   },
   "engine": {
     "node": "*",
@@ -34,8 +36,6 @@
   "devDependencies": {
     "katex": "^0.11.1",
     "reveal.js": "^3.9.2",
-    "socket.io": "^2.3.0",
-    "socket.io-client": "^2.3.0",
     "three": "^0.114.0"
   }
 }
