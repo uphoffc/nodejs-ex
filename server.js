@@ -10,7 +10,9 @@ var server = http.createServer(function (req, res) {
 
 var io = require('socket.io')(server);
 
-server.listen(8080);
+var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080;
+
+server.listen(port);
 
 var passwordHash = '$2b$10$Z.k8FXVhVdEkyLq.hKOYeepN9YUwBmJ7qI7ofZMibMeYNwwC8bCle';
 
