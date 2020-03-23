@@ -1,0 +1,140 @@
+/**
+ * TUM theme for reveal.js.
+ *
+ * By Carsten Uphoff
+ */
+
+
+// Default mixins and settings -----------------
+@import "../template/mixins";
+@import "../template/settings";
+// ---------------------------------------------
+
+
+// Include theme-specific fonts
+
+// Override theme settings (see ../template/settings.scss)
+$backgroundColor: #fff;
+
+$mainColor: #222;
+$headingColor: #000;
+
+$mainFontSize: 38px;
+$mainFont: Arial, sans-serif;
+$headingFont: Arial, sans-serif;
+$headingTextShadow: none;
+$headingLetterSpacing: normal;
+$headingTextTransform: none;
+$headingFontWeight: normal;
+$linkColor: #3070b3;
+$linkColorHover: lighten( $linkColor, 15% );
+$selectionBackgroundColor: lighten( $linkColor, 25% );
+
+$heading1Size: 1.9em;
+$heading2Size: 1.6em;
+$heading3Size: 1.3em;
+$heading4Size: 1.0em;
+
+section.has-dark-background {
+	&, h1, h2, h3, h4, h5, h6 {
+		color: #fff;
+	}
+}
+
+$logoHeight: 5em;
+
+@mixin bodyBackground() {
+    background-image: url(../../img/TUM_Logo_blau_rgb_p.png);
+    //background-image: url(../../img/TUM_Web_Logo_neg.png);
+    background-repeat: no-repeat;
+    background-size: auto $logoHeight;
+    background-position: right $logoHeight top $logoHeight;
+}
+
+.box {
+  background: rgba(255,255,255,1.0);
+  border-radius: 0.6em;
+  border: 0.12em #000 solid;
+  padding: 0.0em;
+  h4 {
+    //text-align: left; 
+    position: absolute;
+    top: -0.97em;
+    left: 0.5em;
+    font-size: 1.8em !important;
+  }
+  p {
+    padding: 0em 0.4em;
+  }
+}
+
+img {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.columns {
+  display: flex;
+  align-items: center;
+}
+
+.columns_wrap {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.column {
+  flex: 1;
+}
+
+.column50 {
+  flex: 1;
+  min-width: 50%;
+  img {
+    max-width: 70% !important;
+  }
+}
+
+.video_wrapper {
+  position: relative;
+  padding-bottom: 32.74%;
+  iframe {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+
+ul {
+  list-style: none !important;
+  li {
+    &:before {
+      content: '\2014';
+      color: #3070b3;
+      display: inline-block;
+      width: 1.5em;
+      margin-left: -1.5em;
+    }
+  }
+}
+
+ul.listplus {
+  list-style: none !important;
+  li {
+    &:before {
+      content: '+';
+      color: #3070b3;
+      display: inline-block;
+      width: 1em;
+      margin-left: -1em;
+    }
+  }
+}
+
+// Theme template ------------------------------
+@import "../template/theme";
+// ---------------------------------------------

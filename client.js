@@ -13,6 +13,10 @@ form.onsubmit = function(e) {
   form.style.display = 'none';
 };
 
+document.getElementById('barThingy').onclick = function(e) {
+  form.style.display = 'block';
+}
+
 
 Reveal.initialize({
   width: 1280,
@@ -21,10 +25,6 @@ Reveal.initialize({
   history: true,
   //center: false,
   transition: 'fade'
-});
-
-socket.on('change-state', function(data){
-  Reveal.setState(data.state);
 });
 
 var stateChanged = function(event) {
@@ -37,3 +37,7 @@ var stateChanged = function(event) {
 Reveal.addEventListener( 'slidechanged', stateChanged );
 Reveal.addEventListener( 'fragmentshown', stateChanged );
 Reveal.addEventListener( 'fragmenthidden', stateChanged );
+
+socket.on('change-state', function(data){
+  Reveal.setState(data.state);
+});

@@ -27,14 +27,14 @@ io.on('connection', function(socket) {
   });
 
   if (currentState) {
-    io.sockets.emit('change-state', {
+    socket.broadcast.emit('change-state', {
       state: currentState
     });
   }
   socket.on('state-changed', function(data) {
     if (master) {
       currentState = data.state;
-      io.sockets.emit('change-state', {
+      socket.broadcast.emit('change-state', {
         state: data.state
       });
     }
