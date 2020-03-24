@@ -1,5 +1,6 @@
 const Reveal = require('reveal.js');
 const io = require('socket.io-client');
+const hljs = require('highlight.js');
 
 var socket = io();
 
@@ -26,6 +27,8 @@ Reveal.initialize({
   //center: false,
   transition: 'fade'
 });
+
+hljs.initHighlightingOnLoad();
 
 var stateChanged = function(event) {
   var state = Reveal.getState();

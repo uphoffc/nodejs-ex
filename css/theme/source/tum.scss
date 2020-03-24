@@ -73,6 +73,10 @@ img, pre {
   box-shadow: none !important;
 }
 
+pre {
+  font-size: 0.5em !important;
+}
+
 .columns {
   display: flex;
   align-items: center;
@@ -142,6 +146,19 @@ ul.listplus {
     &:before {
       content: '+';
       color: #3070b3;
+      display: inline-block;
+      width: 1em;
+      margin-left: -1em;
+    }
+  }
+}
+
+ul.listminus {
+  list-style: none !important;
+  li {
+    &:before {
+      content: '-';
+      color: red;
       display: inline-block;
       width: 1em;
       margin-left: -1em;

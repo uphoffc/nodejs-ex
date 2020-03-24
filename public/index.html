@@ -5,6 +5,7 @@
 		<title>Flexible model extension and optimisation for earthquake simulations at extreme scales</title>
     <link rel="stylesheet" href="css/reveal.css">
     <link rel="stylesheet" href="css/katex.min.css">
+    <link rel="stylesheet" href="css/hljs.css">
     <link rel="stylesheet" href="css/theme/tum.css">
     <link rel="stylesheet" href="css/login.css">
     <script src="js/katex.min.js"></script>
@@ -191,7 +192,7 @@
             </div>
             <div class="column50 no_margin">&darr;&uarr;</div><div class="column50 no_margin"></div>
             <div class="column50 no_margin">
-              <pre>
+              <pre><code class="x86asm">
 vmovapd 0(%rdi), %zmm0
 vmovapd 128(%rdi), %zmm1
 vfmadd231pd 0(%rsi) {1to8}, %zmm0, %zmm16
@@ -199,7 +200,7 @@ vfmadd231pd 0(%rsi,%r15,1) {1to8}, %zmm0, %zmm17
 vfmadd231pd 0(%rsi,%r15,2) {1to8}, %zmm0, %zmm18
 vfmadd231pd 0(%rsi,%rax,1) {1to8}, %zmm0, %zmm19
 vfmadd231pd 0(%rsi,%r15,4) {1to8}, %zmm0, %zmm20
-              </pre>
+              </code></pre>
             </div>
             <div class="column50 no_margin">
               <p>Implementation</p>
@@ -218,22 +219,24 @@ vfmadd231pd 0(%rsi,%r15,4) {1to8}, %zmm0, %zmm20
             </div>
             <div class="column50 fragment" data-fragment-index="1">
               \(
-                A_i := \sum_i B_iC_i
+                A_i := B_iC_i
+                \quad
+                (A := B \circ C)
               \)
             </div>
             <div class="column50">
               \(
-                A_i = B_{i}C_{i}D_{i}E_{i}
+                a = B_{i}C_{i}D_{i}E_{i}
               \)
             </div>
             <div class="column50 fragment" data-fragment-index="1">
               \(
-                A_i := \sum_i B_{i}C_{i}D_{i}E_{i}
+                a := \sum_i B_{i}C_{i}D_{i}E_{i}
               \)
             </div>
             <div class="column50">
               \(
-              A_{ij} = B_{ji} + C_{ji}
+              A_{ij} = B_{ji} + C_{ij}
               \)
             </div>
             <div class="column50 fragment" data-fragment-index="1">
@@ -307,10 +310,41 @@ vfmadd231pd 0(%rsi,%r15,4) {1to8}, %zmm0, %zmm20
           </div>
         </section>
         <section>
+          <div class="stretch" style="text-align: left;">
+            <h2>Code generation</h2>
+<pre><code class="python">
+generator.add('kernel',
+  Q['skp'] <= Q['skp'] + Rhat['mk'] * F['nm'] * R['ln'] * I['slq'] * A['qp']
+)
+</code></pre>
+  <p class="smaller fragment" data-fragment-index="1">
+  \( \mathit{tmp0}_{sn[q]} := \mathcal{I}_{sl[q]} R_{ln} \)
+  </p>
+<pre class="fragment" data-fragment-index="2"><code class="cpp">
+for (int _q = 0; _q < 9; ++_q) {
+  double const* _A = I + 448*_q;
+  double const* _B = R;
+  double * _C = _tmp0 + 168*_q;
+  pspammsparse_3819..._m8_n21_k56_ldA8_ldB0_ldC8_alpha1_beta0_alignedA1_alignedC1_pfsigonly(
+    _A, _B, _C, 1.0, 0.0, nullptr);
+}
+</code></pre>
+  <p class="smaller fragment" data-fragment-index="1">
+    \( \mathit{tmp1}_{nk} := F_{nm} \hat{R}_{mk} \)<br/>
+    \( \mathit{tmp2}_{sk[q]} := \mathit{tmp0}_{sn[q]} \mathit{tmp1}_{nk} \)<br/>
+    \( Q_{(sk)p} := Q_{(sk)p} + \mathit{tmp2}_{(sk)q} A_{qp} \)<br/>
+  </p>
+<pre class="fragment" data-fragment-index="2"><code class="cpp">
+libxsmm_m448_n15_k9_ldA448_ldB9_ldC448_alpha1_beta1_alignedA1_alignedC1_BL2viaC(
+  _tmp2, A, Q, nullptr, nullptr, nullptr);
+</code></pre>
+          </div>
+        </section>
+        <section>
           <div class="columns">
             <div class="column" style="max-width: 60%;">
-              <p>Viscoelasticity</p>
-              <p class="credit">On dual socket Xeon Platinum 8174 (≈ 3.8 TFLOPS, double precision)</p>
+              <h3>Viscoelasticity</h3>
+              <p class="credit">On dual socket Xeon Platinum 8174<br/>(≈ 3.8 TFLOPS, double precision)</p>
               <img src="img/ensemble.png"/>
             </div>
             <div class="column">
@@ -318,6 +352,10 @@ vfmadd231pd 0(%rsi,%r15,4) {1to8}, %zmm0, %zmm20
                 <li>DSL implementation resembles numerical scheme</li>
                 <li>High control over implementation<br>(pre-fetching, memory layout)</li>
                 <li>High performance<br>(over 40 % peak)</li>
+              </ul>
+              <ul class="listminus">
+                <li>Weak form &rarr; numerical scheme</li>
+                <li>Indices &rarr; less generic<br/>(e.g. 2D vs 3D)</li>
               </ul>
             </div>
           </div>
@@ -382,6 +420,30 @@ vfmadd231pd 0(%rsi,%r15,4) {1to8}, %zmm0, %zmm20
             <h3>Improved load balancing on Shaheen and Cori</h3>
             <img src="img/strong_scaling_cori.png" style="max-width: 55%";/><br/>
             <span>Parallel efficiency: 91% on Shaheen II, 72% on Cori</span>
+          </div>
+        </section>
+        <section>
+          <div class="stretch" style="text-align: left;">
+            <h2>Summary</h2>
+            <div class="columns">
+              <div class="column" style="margin-right: 3em;">
+                <ul>
+                  <li>DSL for small tensors</li>
+                  <li>Ensemble simulations and viscoelasticity</li>
+                  <li>Local-time stepping enables simulation of Sumatra earthquake</li>
+                  <li>Excellent scalability</li>
+                </ul>
+                <br/>
+                <br/>
+                <h3>&rArr; Large-scale earthquake simulations in a few hours</h3>
+              </div>
+              <div class="column" style="max-width: 40%">
+                <img src="img/darfield.jpg"/>
+                <video loop data-autoplay>
+                  <source data-src="video/sumatra.webm" type="video/webm">
+                </video>
+              </div>
+            </div>
           </div>
         </section>
       </div>
