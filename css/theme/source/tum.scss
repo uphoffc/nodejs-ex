@@ -51,7 +51,7 @@ $logoHeight: 7%;
     background-position: right $logoHeight top $logoHeight;
 }
 
-.box {
+.box, .box2 {
   background: rgba(255,255,255,1.0);
   border-radius: 0.6em;
   border: 0.12em #000 solid;
@@ -60,12 +60,19 @@ $logoHeight: 7%;
     //text-align: left; 
     position: absolute;
     top: -0.97em;
-    left: 0.5em;
     font-size: 1.8em !important;
   }
   p {
     padding: 0em 0.4em;
   }
+}
+
+.box h4 {
+  left: 0.5em;
+}
+
+.box2 h4 {
+  right: 0.5em;
 }
 
 img, pre {
@@ -133,6 +140,18 @@ ul {
     &:before {
       content: '\2014';
       color: #3070b3;
+      display: inline-block;
+      width: 1.5em;
+      margin-left: -1.5em;
+    }
+  }
+}
+
+ul.greylist {
+  color: #ccc;
+  li {
+    &:before {
+      content: '';
       display: inline-block;
       width: 1.5em;
       margin-left: -1.5em;

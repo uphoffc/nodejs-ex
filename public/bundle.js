@@ -26,7 +26,17 @@ Reveal.initialize({
   margin: 0.1,
   history: true,
   //center: false,
-  transition: 'fade'
+  transition: 'fade',
+  slideNumber: function(slide) {
+    ind = Reveal.getIndices(slide);
+    vert = ind.v;
+    vertStr = '';
+    if (vert > 0) {
+      vertStr = '.' + vert;
+    }
+    console.log(ind);
+    return [ (ind.h+1) + vertStr + '/' + Reveal.getHorizontalSlides().length ];
+  }
 });
 
 hljs.initHighlightingOnLoad();

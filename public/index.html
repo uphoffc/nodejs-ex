@@ -34,8 +34,10 @@
         </section>
         <section data-background-image="img/searles_valley.jpg">
           <div class="stretch">
+            <div style="position: absolute; color: #fff; bottom: 2em; right: 0; text-align: right;" class="credit">
+                Photo: Ryan Gold, USGS
+            </div>
             <div style="position: absolute; bottom: 0em;">
-              <!-- f4ca06 ? -->
               <h2 style="text-align: left; color: #fff;">Earthquake Simulations</h2>
             </div>
           </div>
@@ -53,25 +55,29 @@
                   
                 $$
                 $$
-                  \rho \frac{\partial}{\partial t} u_i = f_i + \frac{\partial}{\partial x_j}\sigma_{ji}
+                  \rho \frac{\partial}{\partial t} u_i = \frac{\partial}{\partial x_j}\sigma_{ji}
                 $$
-                Einstein: Sum over every index that appears twice.
+                \(\rho,\mu,\lambda\): density, Lamé parameters<br/>
+                \(\sigma_{ij}, u_i\): stress tensor, particle velocities<br/>
+
+                Sum over every index that appears twice (Einstein).
               </p>
             </div>
-            <div style="position: absolute; right: 0em; bottom: 0em; border-color: #ad0000;" class="box fragment">
+            <div style="position: absolute; right: 0em; bottom: 0em; border-color: #ad0000;" class="box2 fragment">
               <h4 style="color: #ad0000;">Σ</h4>
               <p style="font-size: 0.6em; text-align: left;">
                 Differential-algebraic equations: 
                 $$
-                  \tau_S \llbracket\boldsymbol{u}\rrbracket -
-                  \boldsymbol{\tau}|u| = 0
+                  \tau_S s - \tau|s| = 0
                 $$
                 $$
-                  \tau_S = \max(0,-\sigma_n f(|u|,\psi)) 
+                  \tau_S = \max(0,-\sigma_n f(|s|,\psi)) 
                 $$
                 $$
-                  \frac{d\psi}{dt} = g(|u|,\psi)
+                  \frac{d\psi}{dt} = g(|s|,\psi)
                 $$
+                \(s=u^+-u^-, \tau=\) traction<br/>
+                \(f,g\): friction law, state evolution eq.
               </p>
             </div>
           </div>
@@ -86,17 +92,17 @@
             </div>
             <div class="column" style="text-align: left; max-width: 45%; align-self: flex-end;">
               Arbitrary high-order DERivatives
-              <ul class="fragment">
+              <ul class="greylist fragment highlight-current-blue">
                 <li>Local time-stepping</li>
                 <li>High-order in time</li>
               </ul>
               Discontinuous Galerkin
-              <ul class="fragment">
-                <li>Explicit semi-discrete form</li>
+              <ul class="greylist fragment highlight-current-blue">
+                <li>High computation, low communication</li>
                 <li>Fault as boundary condition (discont. solution space)</li>
               </ul>
               Finite Element Method
-              <ul class="fragment">
+              <ul class="greylist fragment highlight-current-blue">
                 <li>Complex geometries<br>(tetrahedral meshes)</li>
                 <li>High-order in space</li>
               </ul>
@@ -127,7 +133,7 @@
                 <iframe data-src="iframe/wave.html" frameborder="0" data-preload></iframe>
               </div></div>
               <ul class="listplus smaller">
-                <li class="fragment highlight-red" data-fragment-index="1">YATeTo</li>
+                <li class="fragment highlight-blue" data-fragment-index="1">YATeTo</li>
                 <li>Viscoelasticity (and plasticity)</li>
                 <li><i>easi</i> model initialisation</li>
               </ul>
@@ -137,7 +143,7 @@
               <img src="img/supermucng.jpg">
               <p class="credit">SuperMUC-NG, Photo: Veronika Hohenegger, LRZ</p>
               <ul class="listplus smaller">
-                <li class="fragment highlight-red" data-fragment-index="1">Largest dynamic rupture simulation of the 2004 Sumatra-Andaman earthquake</li>
+                <li class="fragment highlight-blue" data-fragment-index="1">Largest dynamic rupture simulation of the 2004 Sumatra-Andaman earthquake</li>
               </ul>
             </div>
           </div>
@@ -151,7 +157,7 @@
               <h1 style="text-align: left;"><b>To</b>olbox</h1>
             </div>
             <div class="column fragment" style="text-align: left;">
-              <p>Fix the implementation chaos:</p>
+              <p>Why? Fix the implementation chaos:</p>
 
               <ul class="smaller">
                 <li>Architectures: <b>Haswell, Knights Landing, Skylake</b>, ARM, PowerPC, GPU</li>
@@ -210,62 +216,70 @@ vfmadd231pd 0(%rsi,%r15,4) {1to8}, %zmm0, %zmm20
           </div>
         </section>
         <section>
-          <h2>Einstein's convention</h2><br/>
-          <div class="columns_wrap" style="align-items: baseline;">
-            <div class="column50">
-              \(
-                A_i = B_iC_i
-              \)
+          <section>
+            <div class="stretch">
+              <img src="img/yateto_overview.png" style="max-height: 100%;"/>
             </div>
-            <div class="column50 fragment" data-fragment-index="1">
-              \(
-                A_i := B_iC_i
-                \quad
-                (A := B \circ C)
-              \)
+            <div style="position: absolute; left: 0; top: 0.9em; height: calc(100% - 1em); width: 59%; border-radius: 0px; display: flex; align-items: center; justify-content: center;" class="box fragment">
+              <h4><span style="color: #f70000;">LoG:</span> Loop-over-GEMM</h4>
+              <div style="width: 100%;">
+                <img src="img/log.svg" width="100%"/>
+              </div>
             </div>
-            <div class="column50">
-              \(
-                a = B_{i}C_{i}D_{i}E_{i}
-              \)
+          </section>
+          <section>
+            <h2>Einstein's convention</h2><br/>
+            <div class="columns_wrap" style="align-items: baseline;">
+              <div class="column50">
+                \(
+                  A_i = B_iC_i
+                \)
+              </div>
+              <div class="column50 fragment" data-fragment-index="1">
+                \(
+                  A_i := B_iC_i
+                  \quad
+                  (A := B \circ C)
+                \)
+              </div>
+              <div class="column50">
+                \(
+                  a = B_{i}C_{i}D_{i}E_{i}
+                \)
+              </div>
+              <div class="column50 fragment" data-fragment-index="1">
+                \(
+                  a := \sum_i B_{i}C_{i}D_{i}E_{i}
+                \)
+              </div>
+              <div class="column50">
+                \(
+                A_{ij} = B_{ji} + C_{ij}
+                \)
+              </div>
+              <div class="column50 fragment" data-fragment-index="1">
+                \(
+                  A := B^T + C
+                \)
+              </div>
+              <div class="column50 smaller">
+                \(
+                  A_{ij} = B_{ilk} C_{jl} (D_{kmi}E_{mki} + F_{ik})
+                \)
+              </div>
+              <div class="column50 smaller fragment" data-fragment-index="1">
+                \(
+                  A_{ij} := \sum_k B_{ilk} C_{jl} (\sum_m D_{kmi}E_{mki} + F_{ik})
+                \)
+              </div>
+              <div class="column50 smaller">
+                <h3><b>Ambiguous?</b></h3>
+              </div>
+              <div class="column50 smaller fragment" data-fragment-index="1">
+                <h3><b>Semantics!</b></h3>
+              </div>
             </div>
-            <div class="column50 fragment" data-fragment-index="1">
-              \(
-                a := \sum_i B_{i}C_{i}D_{i}E_{i}
-              \)
-            </div>
-            <div class="column50">
-              \(
-              A_{ij} = B_{ji} + C_{ij}
-              \)
-            </div>
-            <div class="column50 fragment" data-fragment-index="1">
-              \(
-                A := B^T + C
-              \)
-            </div>
-            <div class="column50 smaller">
-              \(
-                A_{ij} = B_{ilk} C_{jl} (D_{kmi}E_{mki} + F_{ik})
-              \)
-            </div>
-            <div class="column50 smaller fragment" data-fragment-index="1">
-              \(
-                A_{ij} := \sum_k B_{ilk} C_{jl} (\sum_m D_{kmi}E_{mki} + F_{ik})
-              \)
-            </div>
-            <div class="column50 smaller">
-              <h3><b>Ambiguous?</b></h3>
-            </div>
-            <div class="column50 smaller fragment" data-fragment-index="1">
-              <h3><b>Semantics!</b></h3>
-            </div>
-          </div>
-        </section>
-        <section>
-          <div class="stretch">
-            <img src="img/yateto_overview.png" style="max-height: 100%;"/>
-          </div>
+          </section>
         </section>
         <section>
           <div class="stretch" style="text-align: left;">
@@ -287,12 +301,10 @@ vfmadd231pd 0(%rsi,%r15,4) {1to8}, %zmm0, %zmm20
           </div>
         </section>
         <section>
-          <div class="stretch" style="text-align: left;">
-            <h2>Optimal index permutations</h2>
-            <div style="text-align: center">
-              <img src="img/opt_ind_example.png" style="max-width: 60%;"/>
-            </div>
-            We are free to choose the index permutations of \(T^{(1)}, T^{(2)}, T^{(3)}\).
+          <div class="stretch">
+            <h2 style="text-align: left;">Optimal index permutations</h2>
+            <img src="img/opt_ind_example.png" style="max-width: 60%;"/>
+            <!--We are free to choose the index permutations of \(T^{(1)}, T^{(2)}, T^{(3)}\).-->
             <div class="columns">
               <div class="column">
                 <span style="color: red;">Bad:</span>
@@ -343,7 +355,7 @@ libxsmm_m448_n15_k9_ldA448_ldB9_ldC448_alpha1_beta1_alignedA1_alignedC1_BL2viaC(
         <section>
           <div class="columns">
             <div class="column" style="max-width: 60%;">
-              <h3>Viscoelasticity</h3>
+              <p>Viscoelasticity</p>
               <p class="credit">On dual socket Xeon Platinum 8174<br/>(≈ 3.8 TFLOPS, double precision)</p>
               <img src="img/ensemble.png"/>
             </div>
@@ -351,11 +363,11 @@ libxsmm_m448_n15_k9_ldA448_ldB9_ldC448_alpha1_beta1_alignedA1_alignedC1_BL2viaC(
               <ul class="listplus">
                 <li>DSL implementation resembles numerical scheme</li>
                 <li>High control over implementation<br>(pre-fetching, memory layout)</li>
-                <li>High performance<br>(over 40 % peak)</li>
+                <li>High performance<br/>(over 40 % peak)</li>
               </ul>
               <ul class="listminus">
                 <li>Weak form &rarr; numerical scheme</li>
-                <li>Indices &rarr; less generic<br/>(e.g. 2D vs 3D)</li>
+                <li>Indices &rArr; less generic<br/>(e.g. 2D vs 3D)</li>
               </ul>
             </div>
           </div>
@@ -404,23 +416,49 @@ libxsmm_m448_n15_k9_ldA448_ldB9_ldC448_alpha1_beta1_alignedA1_alignedC1_BL2viaC(
           </div>
         </section>
         <section>
-          <div class="stretch">
-            <h3>Strong scaling on SuperMUC and Shaheen</h3>
-            <img src="img/strong_scaling.png"/>
-          </div>
-        </section>
-        <section>
-          <div class="stretch">
-            <h3>Load balancing on Shaheen?</h3>
-            <img src="img/weights_shaheen.png"/>
-          </div>
-        </section>
-        <section>
-          <div class="stretch">
-            <h3>Improved load balancing on Shaheen and Cori</h3>
-            <img src="img/strong_scaling_cori.png" style="max-width: 55%";/><br/>
-            <span>Parallel efficiency: 91% on Shaheen II, 72% on Cori</span>
-          </div>
+          <section>
+            <div class="stretch" style="text-align: left;">
+              <h2>Strong scaling</h2>
+              <p class="smaller">
+                Local time-stepping:
+                SuperMUC,
+                <span style="color: #9c0d16;">Shaheen II</span>,
+                and <span style="color: #005293;">Cori</span><br/>
+                Global time-stepping:
+                <span style="color: #f9ba00;">SuperMUC (baseline version)</span>
+              </p>
+              <div class="columns">
+                <div class="column">
+                  <img src="img/strong_scaling_new_efficiency.png"/>
+                </div>
+                <div class="column">
+                  <img src="img/strong_scaling_new_time.png"/>
+                </div>
+              </div>
+              <p class="smaller">
+                2.3 PFLOPS on Shaheen II and 4.3 PFLOPS on Cori
+              </p>
+            </div>
+          </section>
+          <section>
+            <div class="stretch">
+              <h3>Strong scaling on SuperMUC and Shaheen</h3>
+              <img src="img/strong_scaling.png"/>
+            </div>
+          </section>
+          <section>
+            <div class="stretch">
+              <h3>Load balancing on Shaheen?</h3>
+              <img src="img/weights_shaheen.png"/>
+            </div>
+          </section>
+          <section>
+            <div class="stretch">
+              <h3>Improved load balancing on Shaheen and Cori</h3>
+              <img src="img/strong_scaling_cori.png" style="max-width: 55%";/><br/>
+              <span>Parallel efficiency: 91% on Shaheen II, 72% on Cori</span>
+            </div>
+          </section>
         </section>
         <section>
           <div class="stretch" style="text-align: left;">
