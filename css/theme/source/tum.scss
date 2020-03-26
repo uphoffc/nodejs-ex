@@ -206,6 +206,11 @@ ul.listminus {
   color: #e37222;
 }
 
+hr {
+  border: 0em;
+  border-top: 0.04em #888 dashed;
+}
+
 // Theme template ------------------------------
 @import "../template/theme";
 // ---------------------------------------------

@@ -187,7 +187,8 @@
               <p>Strong / weak form</p>
               <p class="smaller" style="color: red;"><b>UFL:</b> FEniCS, Firedrake, dune-pdelab</p>
             </div>
-            <div class="column50 no_margin">&darr;&uarr;</div><div class="column50 no_margin"></div>
+            <div class="column no_margin" style="min-width: 100%;"><hr/></div>
+            <!--<div class="column50 no_margin">&darr;&uarr;</div><div class="column50 no_margin"></div>-->
             <div class="column50 no_margin">
               <img src="img/numerical_scheme.jpg" style="max-width: 90% !important">
             </div>
@@ -196,7 +197,8 @@
               <p class="smaller tumorange"><b>Einstein (or similar):</b> Many for large tensors</p>
               <a href="https://github.com/SeisSol/yateto">YATeTo!</a>
             </div>
-            <div class="column50 no_margin">&darr;&uarr;</div><div class="column50 no_margin"></div>
+            <div class="column no_margin" style="min-width: 100%;"><hr/></div>
+            <!--<div class="column50 no_margin">&darr;&uarr;</div><div class="column50 no_margin"></div>-->
             <div class="column50 no_margin">
               <pre><code class="x86asm">
 vmovapd 0(%rdi), %zmm0
@@ -210,8 +212,8 @@ vfmadd231pd 0(%rsi,%r15,4) {1to8}, %zmm0, %zmm20
             </div>
             <div class="column50 no_margin">
               <p>Implementation</p>
-              <p class="smaller highlight"><b>BLAS:</b> LIBXSMM, BLIS, OpenBLAS, etc.<br/>
-              <b>Loop-based:</b> loo.py</p>
+              <p class="smaller highlight"><b>GEMM:</b> LIBXSMM, BLIS, OpenBLAS, etc.<br/>
+              <b>Loop-based:</b> loo.py, #pragma omp simd</p>
             </div>
           </div>
         </section>

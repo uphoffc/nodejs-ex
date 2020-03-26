@@ -153,6 +153,11 @@ ul.listminus li:before {
   color: #e37222;
 }
 
+hr {
+  border: 0em;
+  border-top: 0.04em #888 dashed;
+}
+
 /*********************************************
  * GLOBAL STYLES
  *********************************************/
