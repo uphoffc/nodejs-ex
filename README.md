@@ -31,4 +31,4 @@ Hint: browserify and sass have a --watch option which will monitor your file for
 
 # Change password
 
-Modify hash in server.js@17. Create hash with bcyrpt.
+Modify hash in server.js@17. Create hash with bcrypt.
